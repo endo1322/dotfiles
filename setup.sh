@@ -3,14 +3,14 @@
 set -e
 
 DOTFILES_DIR=$(cd "$(dirname "$0")" && pwd)
-
 BACKUP_DIR="$DOTFILES_DIR/backup"
+
 mkdir -p "$BACKUP_DIR"
 
 declare -A symlinks=(
-  [".zshrc"]="$HOME/.zshrc"
-  [".zprofile"]="$HOME/.zprofile"
-  [".gitconfig"]="$HOME/.gitconfig"
+  ["zsh/.zshrc"]="$HOME/.zshrc"
+  ["zsh/.zprofile"]="$HOME/.zprofile"
+  ["git/.gitconfig"]="$HOME/.gitconfig"
   ["mise/config.toml"]="$HOME/.config/mise/config.toml"
 )
 
@@ -25,17 +25,5 @@ for src in "${!symlinks[@]}"; do
   echo "Linked $src"
 done
 
-if command -v brew >/dev/null 2>&1; then
-  brew bundle dump --file="$BACKUP_DIR/Brewfile" --force
-  echo "Backed up current Brewfile to $BACKUP_DIR/Brewfile"
-  brew bundle cleanup --force --file="$DOTFILES_DIR/Brewfile"
-  brew bundle --file="$DOTFILES_DIR/Brewfile"
-else
-  echo "Homebrew not found, skipping brew bundle"
-fi
-
-if command -v mise >/dev/null 2>&1; then
-  mise install
-else
-  echo "mise not found, skipping mise install"
-fi
+bash "$DOTFILES_DIR/brew/setup.sh"
+bash "$DOTFILES_DIR/mise/setup.sh"
