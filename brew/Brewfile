@@ -14,3 +14,5 @@ brew "mise"
 
 # Apps
 cask "visual-studio-code"
+cask "docker"
+cask "claude-code"
