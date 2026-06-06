@@ -5,3 +5,5 @@ else
   compinit -C
 fi
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+eval "$(mise activate zsh)"
