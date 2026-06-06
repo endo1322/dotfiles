@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 if command -v mise >/dev/null 2>&1; then
   mise install

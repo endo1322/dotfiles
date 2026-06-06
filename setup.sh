@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 set -e
 
@@ -7,14 +7,14 @@ BACKUP_DIR="$DOTFILES_DIR/backup"
 
 mkdir -p "$BACKUP_DIR"
 
-declare -A symlinks=(
+typeset -A symlinks=(
   ["zsh/.zshrc"]="$HOME/.zshrc"
   ["zsh/.zprofile"]="$HOME/.zprofile"
   ["git/.gitconfig"]="$HOME/.gitconfig"
   ["mise/config.toml"]="$HOME/.config/mise/config.toml"
 )
 
-for src in "${!symlinks[@]}"; do
+for src in "${(k)symlinks[@]}"; do
   target="${symlinks[$src]}"
   mkdir -p "$(dirname "$target")"
   if [ -e "$target" ] && [ ! -L "$target" ]; then

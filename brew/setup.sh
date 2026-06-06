@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 DOTFILES_DIR=$(cd "$(dirname "$0")/.." && pwd)
 BACKUP_DIR="$DOTFILES_DIR/backup"
