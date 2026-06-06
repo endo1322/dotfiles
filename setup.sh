@@ -18,3 +18,12 @@ for file in "${files[@]}"; do
   ln -snf "$DOTFILES_DIR/$file" "$target"
   echo "Linked $file"
 done
+
+if command -v brew >/dev/null 2>&1; then
+  brew bundle dump --file="$BACKUP_DIR/Brewfile" --force
+  echo "Backed up current Brewfile to $BACKUP_DIR/Brewfile"
+  brew bundle cleanup --force --file="$DOTFILES_DIR/Brewfile"
+  brew bundle --file="$DOTFILES_DIR/Brewfile"
+else
+  echo "Homebrew not found, skipping brew bundle"
+fi
